@@ -1,8 +1,17 @@
-Actual_Date = list(map(int,raw_input().split(' ')))
-Expected_Date = list(map(int,raw_input().split(' ')))
-if Actual_Date[0] - Expected_Date[0] > 0 and Actual_Date[1] - Expected_Date[1] == 0 and Actual_Date[2] - Expected_Date[2] == 0:
-                     print 15 * (Actual_Date[0] - Expected_Date[0])
-elif Actual_Date[1] - Expected_Date[1] > 0 and Actual_Date[2] - Expected_Date[2] == 0:
-                     print 500 * (Actual_Date[1] - Expected_Date[1])
-else:
-                     print 10000
+from datetime import date
+ 
+def calculateHackos(actual, expected):
+    actual_date = date(actual[2], actual[1], actual[0])
+    expected_date = date(expected[2], expected[1], expected[0])
+     
+    if actual_date.year > expected_date.year: return 10000
+    if actual_date.year < expected_date.year: return 0
+    if actual_date.month > expected_date.month: return (actual_date.month - expected_date.month) * 500
+    if actual_date.month < expected_date.month: return 0
+    if actual_date.day > expected_date.day: return (actual_date.day - expected_date.day) * 15
+    return 0   
+ 
+if __name__ == '__main__':
+    actual = map(int, raw_input().split())
+    expected = map(int, raw_input().split())
+    print calculateHackos(actual, expected)
